@@ -7,6 +7,8 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import java.util.List;
+
 @Dao
 public interface SisDatabaseDao {
 
@@ -21,4 +23,7 @@ public interface SisDatabaseDao {
 
     @Delete
     void deleteStudent(Student student);
+
+    @Query("SELECT * FROM Student")
+    List<Student> getStudents();
 }

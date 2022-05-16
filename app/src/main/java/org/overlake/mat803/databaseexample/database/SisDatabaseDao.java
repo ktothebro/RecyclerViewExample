@@ -1,5 +1,6 @@
 package org.overlake.mat803.databaseexample.database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -25,5 +26,5 @@ public interface SisDatabaseDao {
     void deleteStudent(Student student);
 
     @Query("SELECT * FROM Student")
-    List<Student> getStudents();
+    LiveData<List<Student>> getStudents();
 }

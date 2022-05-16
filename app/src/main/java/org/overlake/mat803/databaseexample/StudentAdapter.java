@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.overlake.mat803.databaseexample.database.SisDatabaseDao;
@@ -19,11 +21,15 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
     List<Student> mStudents;
 
-    public StudentAdapter(SisDatabaseDao dao) {
-        mStudents = dao.getStudents();
+    public StudentAdapter(SisDatabaseDao dao, StudentFragment studentFragment) {
+        dao.getStudents().observe(studentFragment, new Observer<List<Student>>() {
+            @Override
+            public void onChanged(List<Student> students) {
+                mStudents = students;
+                notifyDataSetChanged();
+            }
+        });
     }
-
-    @NonNull
     @Override
     public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_student, parent, false);
@@ -40,7 +46,11 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
     @Override
     public int getItemCount() {
-        return mStudents.size();
+        if(mStudents == null){
+            return 0;
+        }
+        return mStudents != null ? mStudents.size(): 0;
+
     }
 
     protected class StudentViewHolder extends RecyclerView.ViewHolder {

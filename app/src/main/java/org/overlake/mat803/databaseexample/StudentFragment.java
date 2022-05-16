@@ -39,7 +39,7 @@ public class StudentFragment extends Fragment {
         SisDatabase database = Room.databaseBuilder(getContext(),SisDatabase.class,"SISDatabase").allowMainThreadQueries().build();
         SisDatabaseDao dao = database.getDao();
 
-        binding.recycler.setAdapter(new StudentAdapter(dao));
+        binding.recycler.setAdapter(new StudentAdapter(dao, this));
 
         StudentAddDialogFragment addStudentFragment = new StudentAddDialogFragment();
 

@@ -8,6 +8,20 @@ public class User {
     public String firstName;
     public String lastName;
 
+    public int getSisId() {
+        return sisId;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+
+
     public User(int sisId, String firstName, String lastName) {
         this.sisId = sisId;
         this.firstName = firstName;

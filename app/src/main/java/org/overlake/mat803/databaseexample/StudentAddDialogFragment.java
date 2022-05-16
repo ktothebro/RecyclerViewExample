@@ -17,6 +17,13 @@ import org.overlake.mat803.databaseexample.database.Student;
 import org.overlake.mat803.databaseexample.databinding.FragmentAddStudentBinding;
 
 public class StudentAddDialogFragment extends DialogFragment {
+
+    public static final String STUDENT_FIRST = "first";
+    public static final String STUDENT_LAST = "last";
+    public static final String SISID = "sisid";
+    public static final String REQ_KEY = "student_values";
+
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -29,12 +36,12 @@ public class StudentAddDialogFragment extends DialogFragment {
                 .setPositiveButton("Create", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Student student = new Student(
-                                Integer.valueOf(binding.studentId.getText().toString()),
-                                binding.firstName.getText().toString(),
-                                binding.secondName.getText().toString()
-                        );
 
+                        Bundle bundle = new Bundle();
+                        bundle.putString(STUDENT_FIRST, binding.firstName.getText().toString());
+                        bundle.putString(STUDENT_LAST, binding.secondName.getText().toString());
+                        bundle.putInt(SISID, Integer.valueOf(binding.studentId.getText().toString()));
+                        getParentFragmentManager().setFragmentResult(REQ_KEY, bundle);
 
                         Toast.makeText(getActivity(), "Student successfully added", Toast.LENGTH_SHORT).show();
                     }
